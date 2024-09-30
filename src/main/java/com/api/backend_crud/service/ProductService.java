@@ -5,9 +5,11 @@ import com.api.backend_crud.entity.Product;
 import com.api.backend_crud.interfaces.IProductService;
 import com.api.backend_crud.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductService implements IProductService {
 
     @Autowired
