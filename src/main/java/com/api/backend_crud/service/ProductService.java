@@ -64,11 +64,36 @@ public class ProductService implements IProductService {
 
     @Override
     public Product updateProduct(Long id, ProductDto productDto) {
-        return null;
+        try {
+            Optional<Product> productId = _productRepository.findById(id);
+            
+            if(productId.isPresent()) {
+                Product existingProduct = productId.get();
+
+                if(isValidName(productDto.getProductName())) {
+                    existingProduct.setProductName(productDto.getProductName());
+                }
+
+                if(isValidName(productDto.getProductDescription())) {
+                    existingProduct.setProductDescription(productDto.getProductDescription());
+                }
+
+                return _productRepository.save(existingProduct);
+            } else {
+                throw new RuntimeException("Produto não encontrado com ID " + id);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao atualizar produto com o ID " + id + ": " + e.getMessage());
+        }
     }
 
     @Override
     public String deleteProduct(Long id) {
         return "";
+    }
+
+    private boolean isValidName(String name) {
+        return name != null && !name.trim().isEmpty();
     }
 }
