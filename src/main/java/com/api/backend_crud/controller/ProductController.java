@@ -5,6 +5,7 @@ import com.api.backend_crud.entity.Product;
 import com.api.backend_crud.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,5 +38,10 @@ public class ProductController {
     @PutMapping("/product/{id}")
     public Product updateProductById(@PathVariable("id") Long id, @RequestBody ProductDto productDto) {
         return productService.updateProduct(id, productDto);
+    }
+
+    @DeleteMapping("/product/{id}")
+    public String deleteProduct(@PathVariable("id") Long id) {
+        return productService.deleteProduct(id);
     }
 }

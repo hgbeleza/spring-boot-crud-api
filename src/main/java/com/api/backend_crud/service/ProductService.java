@@ -90,7 +90,15 @@ public class ProductService implements IProductService {
 
     @Override
     public String deleteProduct(Long id) {
-        return "";
+        try {
+            if(_productRepository.findById(id).isPresent()) {
+                _productRepository.deleteById(id);
+                return "Produto deletado com sucesso!";
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao deletar produto com ID " + id);
+        }
+        return null;
     }
 
     private boolean isValidName(String name) {
